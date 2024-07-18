@@ -1,6 +1,6 @@
 # Source directory to monitor and the path to main script
 $sourceDir = "C:\Data"
-$mainScript = "C:\Scripts\robustFileTransfer.ps1"
+$mainScript = "C:\Scripts\TransferFiles.ps1"
 
 $logFile = "C:\Scripts\logfile.log"
 
