@@ -4,16 +4,16 @@ $mainScript = "C:\Scripts\robustFileTransfer.ps1"
 # Define the source directory to monitor and the path to your main script
 # $sourceDir = "C:\path\to\local\directory"
 # $mainScript = "C:\Scripts\TransferFiles.ps1"
+$logFile = "C:\Scripts\logfile.log"
 
 # Function to log messages
 function Log {
     param ([string]$message)
-    $logFile = "C:\Scripts\logfile.log"
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     Add-Content -Path $logFile -Value "$timestamp - $message"
 }
 
-# Log start of the watcher script
+# Log the start of the watcher script
 Log "Directory watcher script started."
 
 # Check if the source directory exists
@@ -58,6 +58,8 @@ function Cleanup {
 # Add a cleanup step to unregister the event when the script ends
 Register-EngineEvent -SourceIdentifier "PowerShell.Exiting" -Action { Cleanup }
 
-# Keep the script running
-Log "Entering monitoring loop."
-while ($true) { Start-Sleep -Seconds 5 }
+# Keep the script running and log periodically
+while ($true) { 
+    Start-Sleep -Seconds 60 
+    Log "Directory watcher script is still running."
+}
