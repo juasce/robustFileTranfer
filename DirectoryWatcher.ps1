@@ -1,9 +1,7 @@
 # Source directory to monitor and the path to main script
 $sourceDir = "C:\Data"
 $mainScript = "C:\Scripts\robustFileTransfer.ps1"
-# Define the source directory to monitor and the path to your main script
-# $sourceDir = "C:\path\to\local\directory"
-# $mainScript = "C:\Scripts\TransferFiles.ps1"
+
 $logFile = "C:\Scripts\logfile.log"
 
 # Function to log messages
@@ -25,8 +23,13 @@ if (-Not (Test-Path -Path $sourceDir)) {
 # Define the action to take when a new file is created
 $action = {
     Log "New file detected: $($Event.SourceEventArgs.FullPath)"
-    # Execute the main script
-    & $using:mainScript
+    try {
+        # Execute the main script
+        Log "Executing main script: $using:mainScript"
+        & $using:mainScript
+    } catch {
+        Log "Error executing main script: $_"
+    }
 }
 
 # Create the FileSystemWatcher object
